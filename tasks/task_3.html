@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Задача 3</title>
+    <style>
+      body {
+        font-size: 20px;
+      }
+      .items {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        max-width: 300px;
+        border: 2px solid gray;
+      }
+      .lable {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+      }
+      .input {
+        padding: 5px;
+      }
+      .button {
+        padding: 5px 20px;
+      }
+      .border-green {
+        border: 2px solid green;
+      }
+      .border-red {
+        border: 2px solid red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Задача 3</h1>
+    <p>
+      Елемент тренажера англійської. Виводимо зображення елемента і слово.
+      Користувач вводить відповідь. Якщо вірно – відтворюємо фразу «Добре.
+      Молодець!» (і додаємо зелену рамку до елемента), якщо ні - то відтворюємо
+      фразу «Невірно, спробуйте ще раз» (і додаємо червону рамку).
+    </p>
+    <div>
+      <img src="./img/image_3.png" alt="img" />
+    </div>
+    <!-- //======================================================================================================================================================== -->
+
+    <div id="myApp">
+      <div
+        class="items"
+        :class="{
+			'border-green': isUserWord, 'border-red': !isUserWord && !isEmpty
+			}"
+      >
+        <div class="image">
+          <img :src="wordList.imageSrc" :alt="wordList.title" width="200" />
+        </div>
+        <div :class="word">{{wordList.word}}</div>
+        <label class="lable"
+          >Ваш переклад:
+          <input type="text" class="input" v-model.lazy="userWord" />
+        </label>
+        <button class="button" @click=" getTranslation">переклад</button>
+        <div>{{res}}</div>
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue
+
+      const app = createApp({
+        data() {
+          return {
+            userWord: "",
+            res: null,
+            wordList: {
+              imageSrc: "img/road.jpg",
+              word: "road",
+              translation: "дорога",
+            },
+          }
+        },
+
+        computed: {
+          isUserWord() {
+            if (this.userWord) {
+              return this.userWord === this.wordList.translation
+            }
+          },
+          isEmpty() {
+            return this.userWord === ""
+          },
+        },
+        methods: {
+          getTranslation() {
+            this.res = this.isUserWord
+              ? "Добре. Молодець!"
+              : "Невірно, спробуйте ще раз"
+          },
+        },
+      })
+      app.mount("#myApp")
+    </script>
+  </body>
+</html>

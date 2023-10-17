@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Задача 1</title>
+    <style>
+      body {
+        font-size: 22px;
+      }
+      input {
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .error-blue {
+        background-color: blue;
+      }
+      .error-red {
+        background-color: red;
+      }
+      .while {
+        background-color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>
+      Задача 1. Вводимо логіна і пароль. Якщо логін вірний відображаємо смайл.
+      Якщо ні, то:
+    </h1>
+    <ul>
+      <li>якщо логін = Іван – колір повідомлення про помилку синій</li>
+      <li>якщо хтось інший, то колір повідомлення червоний</li>
+    </ul>
+
+    <div id="myApp">
+      <div>
+        <label>
+          Введіть логін
+          <input
+            type="text"
+            v-model="login"
+            :style="{
+					
+				backgroundColor : errorColor
+			}"
+          />
+        </label>
+        <label>
+          Введіть пароль
+          <input
+            type="password"
+            v-model="password"
+            :style="{
+
+				backgroundColor : errorColor
+			}"
+          />
+        </label>
+        <template v-if="isLogin"
+          ><div v-else>
+            <img src="./img/smail.png" alt="smail" /></div
+        ></template>
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue
+
+      const app = createApp({
+        data() {
+          return {
+            login: null,
+            password: null,
+          }
+        },
+        computed: {
+          isLogin() {
+            return this.login === "people" && this.password === "111"
+          },
+          errorColor() {
+            let currectErrorColor
+            if (this.login) {
+              if (this.login === "ivan") currectErrorColor = "blue"
+              else currectErrorColor = "red"
+              return currectErrorColor
+            }
+          },
+        },
+      })
+
+      app.mount("#myApp")
+    </script>
+  </body>
+</html>

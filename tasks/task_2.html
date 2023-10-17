@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Задача 2</title>
+    <style>
+      body {
+        font-size: 20px;
+      }
+      div {
+        margin-bottom: 10px;
+      }
+      select {
+        font-size: 20px;
+        padding: 10px 20px;
+        margin-bottom: 10px;
+      }
+
+      .business-bg {
+        padding: 10px;
+        background: url("./img/business.jpg") 0 0 no-repeat;
+        height: 100vh;
+      }
+      .economy-bg {
+        padding: 10px;
+        background: url("./img/economy.jpg") 0 0 no-repeat;
+        height: 100vh;
+      }
+      button {
+        margin-right: 10px;
+        color: #fff;
+        background-color: #23b123;
+        padding: 10px 20px;
+        transition: all 0.3s;
+      }
+      button:hover {
+        background-color: #147714;
+      }
+      .lable {
+        color: #fff;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Задача 2 З випадаючого списку вибираємо клас квитка у літаку. Якщо</h1>
+    <ul>
+      <li>
+        бізнес - виводимо елементи для вибору газети та коньяку (якщо вибрано
+        коньяк, то запропонувати закуску (так/ні)), на фоні зображення бізнес
+        кают
+      </li>
+      <li>
+        економ – виводимо елементи для вибору типу пива і чипсів, на фоні
+        хмарки.
+      </li>
+    </ul>
+    <!-- //======================================================================================================================================================== -- -->
+
+    <div id="app">
+      <div>оберіть клас квитка</div>
+      <select v-model="planeTicket">
+        <option disabled value="">Оберiть категорiю</option>
+        <option selected value="business">бізнес</option>
+        <option value="economy">економ</option>
+      </select>
+
+      <div class="business-bg" v-if="isButtonVisibleBisiness">
+        <select v-model="cognac">
+          <option disabled value="">оберіть послугу</option>
+
+          <option selected>газети</option>
+          <option value="cognac">коньяк</option>
+        </select>
+        <div v-show="isSelectedCognac">
+          <div class="lable">Ви би хотіли закуску</div>
+          <button>так</button>
+          <button>ні</button>
+        </div>
+      </div>
+    </div>
+    <div class="economy-bg" v-else>
+      <select>
+        <option selected disabled>оберіть послугу</option>
+        <option>пива</option>
+        <option>чипсів</option>
+      </select>
+    </div>
+
+    <script>
+      const { createApp } = Vue
+
+      const app = createApp({
+        data() {
+          return {
+            planeTicket: "",
+            cognac: "",
+          }
+        },
+        computed: {
+          isButtonVisibleBisiness() {
+            return this.planeTicket === "business"
+          },
+
+          isSelectedCognac() {
+            return this.cognac === "cognac"
+          },
+        },
+      })
+      app.mount("#app")
+    </script>
+  </body>
+</html>

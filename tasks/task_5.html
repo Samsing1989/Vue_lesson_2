@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Задача 5</title>
+    <style>
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .conteiner {
+        line-height: 1.4;
+      }
+      .conteiner:not(:last-child) {
+        margin-bottom: 20px;
+      }
+      .block {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(128, 128, 128, 0.212);
+      }
+      .icon img {
+        max-width: 20px;
+      }
+      .link {
+        font-size: 24px;
+        color: blue;
+      }
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      .text {
+        font-size: 18px;
+        max-width: 600px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>
+      Задача 5 - Самостійно сформуйте масив даних та виведіть фрагмент на зразок
+      поданого (дані не обов’язково повинні співпадати)
+    </h1>
+
+    <!-- //======================================================================================================================================================== -->
+
+    <div id="myApp">
+      <div class="conteiner" v-for="moteSite in siteList">
+        <div class="block">
+          <div class="icon"><img :src="moteSite.icon" alt="1" /></div>
+          <a :href="moteSite.satе" class="item">
+            <div class="item-lable">{{moteSite.name}}</div>
+            <div class="item-site">{{moteSite.satе}}</div>
+          </a>
+        </div>
+        <a :href="moteSite.satе" class="link">{{moteSite.href}}</a>
+        <div class="text">{{moteSite.text}}</div>
+      </div>
+    </div>
+    <script>
+      const { createApp } = Vue
+
+      const app = createApp({
+        data() {
+          return {
+            siteList: [
+              {
+                icon: "./img/1.png",
+                name: "DeepL Translate",
+                satе: "https://www.deepl.com/uk/translator",
+                href: "DeepL Translate | Найточніший у світі перекладач",
+                text: "Миттєво перекладай тексти і цілі документи. Точні переклади як для окремих осіб, так і для команд. Мільйони перекладають із DeepL щодня.",
+              },
+              {
+                icon: "img/2.png",
+                name: "Meta.UA",
+                satе: "https://translate.meta.ua/ua/",
+                href: "Онлайн перекладач текстів. Безкоштовний переклад мов ...",
+                text: "Безкоштовний - онлайн перекладач від META.ua дозволяє перекладати тексти з на мову.",
+              },
+              {
+                icon: "img/3.png",
+                name: "M-translate",
+                satе: "https://www.m-translate.org.ua",
+                href: "Національний онлайн перекладач » m-translate.com.ua",
+                text: "Перший національний онлайн перекладач. Підтримує 104 мови, безліч напрямків: з німецької, з польської, з англійської на українську.",
+              },
+              {
+                icon: "img/4.png",
+                name: "Reverso Context",
+                satе: "https://context.reverso.net",
+                href: "Переклад 'перекладач' такою мовою: англійська",
+                text: "Цей перекладач надзвичайно потужний і переведений на більш ніж сорок мов. This translator is extremely powerful and translated into more than forty languages.",
+              },
+              {
+                icon: "img/5.png",
+                name: "Google Play",
+                satе: "https://play.google.com/",
+                href: "Перекладач Google – Додатки в Google Play",
+                text: "Переклад тексту: вводьте текст, щоб перекладати його 108 мовами • Швидкий переклад: скопіюйте текст із будь-якого додатка й торкніться значка Google ...",
+              },
+            ],
+          }
+        },
+      })
+      app.mount("#myApp")
+    </script>
+  </body>
+</html>

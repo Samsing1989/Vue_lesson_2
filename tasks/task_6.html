@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Задача 6</title>
+    <style>
+      .conteiner {
+        font-size: 20px;
+      }
+      .block {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 20px;
+      }
+      .lable {
+        font-size: 30px;
+      }
+      .input {
+        font-size: 20px;
+        padding: 20px 20px;
+      }
+
+      .button {
+        font-size: 20px;
+        padding: 10px 20px;
+        background-color: turquoise;
+        color: white;
+        transition: all 0.3s;
+      }
+      .button:hover {
+        background-color: rgb(29, 100, 93);
+      }
+
+      th {
+        padding: 20px;
+      }
+      tr {
+        padding: 20px;
+      }
+      td {
+        font-size: 30px;
+        text-align: center;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>
+      Задача 6. Задача. На кухню поступають замовлення. Спочатку ми додаємо їх у
+      список “Очікують на виконання”, якщо повар береться робити — замовлення
+      переходить у список “Виконуються”, якщо замовлення виконано — переходить у
+      список “Готові до виносу”. Якщо натиснути на “Подано” - страва зникає з
+      таблиці
+    </h1>
+    <div>
+      <img src="/tasks/img/table.png" alt="table" />
+    </div>
+    <!-- //======================================================================================================================================================== -->
+
+    <div id="myApp">
+      <div class="conteiner">
+        <h2>Нова замовлена страва :</h2>
+        <div class="block">
+          <label class="lable">
+            <input type="text" class="input" v-model="addFood" />
+          </label>
+          <button type="button" class="button" @click="addWaitingForExecution">
+            Додати
+          </button>
+        </div>
+        <table class="table" border="2px">
+          <tr>
+            <th>Очікуваня на виконання</th>
+            <td v-for="(item, index) in waitingForExecution" :key="index">
+              <div>{{item}}</div>
+              <button class="button" @click="addExecutedList(index)">
+                Готувати
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th>Виконуться</th>
+            <td v-for="(item, index) in ExecutedList" :key="index">
+              <div>{{item}}</div>
+              <button class="button" @click="addReadyList(index)">
+                Приготовлено
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <th>Готові до виносу</th>
+            <td v-for="(item, index) in readyList" :key="index">
+              <div>{{item}}</div>
+              <button class="button" @click="doneItem(index)">Подати</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <script>
+      const { createApp } = Vue
+
+      const app = createApp({
+        data() {
+          return {
+            waitingForExecution: [],
+            ExecutedList: [],
+            readyList: [],
+            addFood: null,
+          }
+        },
+        methods: {
+          addWaitingForExecution() {
+            if (this.addFood) {
+              this.waitingForExecution.push(this.addFood)
+            }
+            this.addFood = null
+          },
+          addExecutedList(index) {
+            let item = this.waitingForExecution.splice(index, 1)
+            this.ExecutedList.push(item[0])
+          },
+          addReadyList(index) {
+            let item = this.ExecutedList.splice(index, 1)
+            this.readyList.push(item[0])
+          },
+          doneItem(index) {
+            this.readyList.splice(index, 1)
+          },
+        },
+      })
+      app.mount("#myApp")
+    </script>
+  </body>
+</html>
